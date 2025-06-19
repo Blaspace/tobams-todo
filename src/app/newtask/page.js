@@ -30,6 +30,7 @@ function Page() {
       .then((json) => {
         console.log(json);
         router.push("/");
+        window.location.reload();
       })
       .catch((err) => console.log(err))
       .finally(() => {

@@ -10,7 +10,7 @@ export default function Home() {
   const [todoTasks, setTodoTask] = useState([]);
   const [inProgress, setInProgress] = useState([]);
   const [done, setDone] = useState([]);
-  const { tasks, setTasks } = useContext(TaskContext);
+  const { tasks, setTasks, theme } = useContext(TaskContext);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -35,20 +35,20 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const todo = tasks.filter(
-      (value) => value.tasks.filter((v) => v.done).length === 0
+    const todo = tasks?.filter(
+      (value) => value?.tasks?.filter((v) => v?.done)?.length === 0
     );
     setTodoTask(todo);
     const progress = tasks.filter(
       (value) =>
-        value.tasks.length > value.tasks.filter((v) => v.done).length &&
-        value.tasks.filter((v) => v.done).length
+        value?.tasks?.length > value?.tasks?.filter((v) => v?.done)?.length &&
+        value?.tasks?.filter((v) => v?.done)?.length
     );
     setInProgress(progress);
     setDone(
-      tasks.filter(
+      tasks?.filter(
         (value) =>
-          value.tasks.length === value.tasks.filter((v) => v.done).length
+          value?.tasks?.length === value?.tasks?.filter((v) => v?.done)?.length
       )
     );
   }, [tasks]);
@@ -56,7 +56,9 @@ export default function Home() {
   return (
     <>
       <Loading loading={loading} />
-      <div className="">
+      <div className={`${
+              theme === "light" ? "bg-[#ffffff]" : "bg-[#292b31]"
+            }`}>
         <Filter />
         <div className="flex justify-between w-full p-[10px]">
           <Tasks tasks={todoTasks} cat={"todo"} />

@@ -10,12 +10,13 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
   
   return (
     <html lang="en">
       <body>
         <TaskProvider>
-          <div className="flex">
+          <div className={`flex`}>
             <Sidebar />
             <div className="w-[80%] flex flex-col items-center h-screen overflow-y-scroll">
               <div className="w-[95%] ">

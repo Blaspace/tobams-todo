@@ -8,45 +8,48 @@ function Page() {
   const [task, setTask] = useState();
   const [tasks, setTasks] = useState(task?.tasks || []);
   const [tasktext, setTasktext] = useState("");
+  const [changed, setChanged] = useState(false);
   const taskInput = useRef();
   const router = useRouter();
   const params = useParams();
 
   const handlePush = (e) => {
+    if (changed) {
     e.target.style.background = "grey";
     e.target.innerText = "Loading...";
     e.target.disabled = true;
-    fetch(`/api/task/add`, {
+    fetch(`/api/task/update/${params.id}`, {
       method: "Post",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         tasks,
-        title,
-        dateDue: dueDate,
-        createdBy: "James Ngbede",
       }),
     })
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
         router.push("/");
+        window.location.reload();
       })
       .catch((err) => console.log(err))
       .finally(() => {
         e.target.style.background = "#2a2b2f";
-        e.target.innerText = "Submit";
+        e.target.innerText = "Update Task";
         e.target.disabled = false;
       });
+    }
   };
 
   useEffect(() => {
     fetch(`/api/task/${params.id}`)
       .then((res) => res.json())
       .then((json) => {
-        setTask(json)
-        setTasks(json.tasks || []);
+        setTask(json);
+        if (json.tasks) {
+          setTasks(json.tasks || []);
+        }
       })
       .catch((err) => console.log(err));
   }, []);
@@ -63,14 +66,26 @@ function Page() {
       setTasks(newTask);
       taskInput.current.value = "";
       setTasktext("");
+      setChanged(true);
     }
   };
 
   const handleRemoveTask = (e) => {
     const newTask = tasks.filter((value) => value.task !== e.task);
     setTasks(newTask);
+    setChanged(true);
   };
 
+  const handleCheck = (e) => {
+    const newTask = tasks.map((value) => { 
+      if (value.task === e.task) {
+        return { ...value, done: !value.done };
+      }
+      return value;
+    });
+    setTasks(newTask);
+    setChanged(true);
+  };
   return (
     <div className="w-full flex justify-center flex-col">
       <div
@@ -96,9 +111,9 @@ function Page() {
             </div>
             <button
               onClick={(e) => handlePush(e)}
-              className="w-[200px] h-[40px] self-start border-[#2a2b2f] text-[#ffffff] bg-[#2a2b2f] font-[500] rounded-2xl"
+              className={`w-[200px] h-[40px] self-start text-[#ffffff] ${changed ?'bg-[#2a2b2f]' : "bg-gray-200"} font-[500] rounded-2xl`}
             >
-              Submit
+              Update Task
             </button>
           </section>
           <section className="flex flex-col gap-[15px] w-[48%]">
@@ -122,7 +137,7 @@ function Page() {
               {tasks?.map((value) => {
                 return (
                   <section
-                    key={value}
+                    key={value?.task}
                     className="flex justify-between p-[10px] w-full items-center h-[50px] bg-[#ffffff] rounded-[8px] border-1 border-[lightgray]"
                   >
                     <span className="flex gap-[10px]">

@@ -2,10 +2,18 @@ import React from "react";
 import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
 import { FaCirclePlus } from "react-icons/fa6";
 import { CiGrid2H } from "react-icons/ci";
+import TaskContext from "@/context/TaskContext";
 
 function Filter() {
+  const { theme } = React.useContext(TaskContext);
   return (
-    <div className="bg-[#ffffff] w-full flex items-center justify-between border-b border-gray-300">
+    <div
+      className={`${
+        theme === "light" ? "bg-[#ffffff]" : "bg-[#292b31]"
+      } w-full flex items-center justify-between border-b ${
+        theme === "light" ? "border-gray-300" : "border-gray-600"
+      }`}
+    >
       <div className="flex gap-[20px] items-center text-[14px]">
         <p className="text-gray-500 pb-[10px] flex gap-[5]">
           <CiGrid2H size={20} />

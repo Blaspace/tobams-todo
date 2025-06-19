@@ -13,7 +13,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 function Sidebar() {
   const [togle, setToggle] = React.useState(false);
-  const {theme, setTheme} = React.useContext(TaskContext);
+  const { theme, setTheme } = React.useContext(TaskContext);
   const icons = [
     CiGrid41,
     FiUser,
@@ -26,10 +26,12 @@ function Sidebar() {
 
   React.useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "light";
+    document.getElementsByTagName("body")[0].style.backgroundColor =
+      theme === "light" ? "#ffffff" : "#292b31";
     setTheme(savedTheme);
-  }, []);
+  }, [theme]);
   return (
-    <div className="flex h-screen w-[20%] text-[#ffffff] shadow-[5px 5px 25px rgba(0,0,0,0.5)] ]">
+    <div className="flex h-screen w-[20%] text-[#ffffff] shadow-2xl ]">
       <div className="bg-[#2a2b2f] w-[80px] flex center items-center gap-[20px] pt-[20px] flex-col">
         <Image
           src="/Ovals.png"
@@ -52,38 +54,71 @@ function Sidebar() {
         </ul>
       </div>
       <section
-        className={`bg-[#ffffff] w-[${
-          togle ? "0" : "80%"
-        }] transition-all flex flex-col justify-between duration-500 text-[#2a2b2f] p-[20px] w-full`}
+        className={`${theme === "light" ? "bg-[#ffffff]" : "bg-[#222327]"} ${
+          togle ? "w-[0]" : "w-[80%]"
+        } transition-all flex flex-col justify-between duration-500 text-[#2a2b2f] p-[20px] w-full`}
       >
-        <div>
+        <div
+          className={`${
+            theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
+          }`}
+        >
           <section className="flex items-center justify-between w-full">
             <h1 className="text-2xl font-bold">Projects</h1>{" "}
-            <FaCirclePlus className="text-[20px] text-gray-300" />
+            <FaCirclePlus className="text-[20px] " />
           </section>
           <br />
           <div className="flex flex-col gap-1 font-[550] text-[14px] text-gray-500">
             <p className="flex justify-between ">
-              Team <IoIosArrowForward color="black" />
+              Team{" "}
+              <IoIosArrowForward
+                color={`${
+                  theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
+                }`}
+              />
             </p>
             <p className="flex justify-between ">
-              Projects <IoIosArrowForward color="black" />
+              Projects{" "}
+              <IoIosArrowForward
+                color={`${
+                  theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
+                }`}
+              />
             </p>
             <p className="flex justify-between ">
-              Tasks <IoIosArrowForward color="black" />
+              Tasks{" "}
+              <IoIosArrowForward
+                color={`${
+                  theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
+                }`}
+              />
             </p>
             <p className="flex justify-between ">
-              Reminder <IoIosArrowForward color="black" />
+              Reminder{" "}
+              <IoIosArrowForward
+                color={`${
+                  theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
+                }`}
+              />
             </p>
             <p className="flex justify-between ">
-              Managers <IoIosArrowForward color="black" />
+              Managers{" "}
+              <IoIosArrowForward
+                color={`${
+                  theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
+                }`}
+              />
             </p>
           </div>
         </div>
-        <div className="w-full flex justify-around p-[3px] items-center rounded-2xl bg-gray-100">
+        <div
+          className={`w-full flex justify-around p-[3px] items-center rounded-2xl  ${
+            theme === "light" ? "bg-gray-100 text-[#000]" : "bg-gray-600 text-[#ffffff]"
+          } `}
+        >
           <span
             className={`w-[50%] h-[30px] ${
-              theme === "light" && "bg-[#ffffff]"
+              theme === "light" && "bg-[#ffffff] text-[#000]"
             }  rounded-2xl flex justify-center text-[14px] items-center cursor-pointer shadow-2xl`}
             onClick={() => {
               localStorage.setItem("theme", "light");
@@ -94,7 +129,7 @@ function Sidebar() {
           </span>
           <span
             className={`w-[50%] h-[30px]  ${
-              theme === "dark" && "bg-[#000]"
+              theme === "dark" && "bg-[#000] text-[#ffffff]"
             } rounded-2xl flex justify-center text-[14px] items-center cursor-pointer shadow-2xl`}
             onClick={() => {
               localStorage.setItem("theme", "dark");
