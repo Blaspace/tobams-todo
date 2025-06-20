@@ -5,6 +5,8 @@ import { FaCirclePlus } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import TaskDropdown from "./TaskDropdown";
 import TaskContext from "@/context/TaskContext";
+import { LiaComment } from "react-icons/lia";
+import { ImAttachment } from "react-icons/im";
 import Link from "next/link";
 
 function Tasks({ tasks, cat }) {
@@ -90,7 +92,7 @@ function Tasks({ tasks, cat }) {
                 }%, ${theme === "light" ? "#ffffff" : "#292b31"} 100%)`,
               }}
             />
-            <div>
+            <div className={`flex justify-between items-center mt-[10px]`}>
               <p
                 className={`p-[3px] flex justify-center mt-[10px]  ${
                   cat === "done"
@@ -108,6 +110,14 @@ function Tasks({ tasks, cat }) {
               >
                 {value?.dateDue}
               </p>
+              <span className="flex gap-[10px] text-gray-400 text-[14px]">
+                <p className="flex items-center gap-1">
+                  <LiaComment className="text-gray-400 text-[15px]" /> 0
+                </p>
+                <p className="flex items-center gap-1">
+                  <ImAttachment className="text-gray-400 text-[14px]" /> 0
+                </p>
+              </span>
             </div>
           </div>
         );

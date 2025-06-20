@@ -67,26 +67,25 @@ function Sidebar() {
             theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
           }`}
         >
-          
           <section className="flex items-center justify-between w-full">
             <h1 className="text-2xl font-bold">Projects</h1>{" "}
             <FaCirclePlus className="text-[20px] " />
           </section>
           <br />
+          <br />
           <div className="flex flex-col gap-1 font-[550] text-[14px] text-gray-500">
             <Link href={"/"}>
-          <p className="flex justify-between ">
-              Tasks{" "}
-              <IoIosArrowForward
-                color={`${
-                  theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
-                }`}
-              />
-              
-            </p>
+              <p className="flex justify-between ">
+                Tasks{" "}
+                <IoIosArrowForward
+                  color={`${
+                    theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
+                  }`}
+                />
+              </p>
             </Link>
-            <p className="flex justify-between ">
-              Team{" "}
+            {/*<p className="flex justify-between ">
+              Team {" "}
               <IoIosArrowForward
                 color={`${
                   theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
@@ -116,17 +115,19 @@ function Sidebar() {
                   theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
                 }`}
               />
-            </p>
+            </p>*/}
           </div>
         </div>
         <div
           className={`w-full flex justify-around p-[3px] items-center rounded-2xl  ${
-            theme === "light" ? "bg-gray-100 text-[#000]" : "bg-[#292b31] text-[#ffffff]"
+            theme === "light"
+              ? "bg-gray-100 text-[#000]"
+              : "bg-[#292b31] text-[#ffffff]"
           } `}
         >
           <span
             className={`w-[50%] h-[30px] ${
-              theme === "light" && "bg-[#ffffff] text-[#000]" 
+              theme === "light" && "bg-[#ffffff] text-[#000]"
             }  rounded-2xl flex justify-center text-[14px] items-center cursor-pointer shadow-2xl`}
             onClick={() => {
               localStorage.setItem("theme", "light");

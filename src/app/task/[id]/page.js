@@ -1,14 +1,17 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
+import Loading from "@/components/Loading";
+import TaskContext from "@/context/TaskContext";
 
 function Page() {
-  
+  const [loading, setLoading] = useState(false);
   const [task, setTask] = useState();
   const [tasks, setTasks] = useState(task?.tasks || []);
   const [tasktext, setTasktext] = useState("");
   const [changed, setChanged] = useState(false);
+  const { theme } = useContext(TaskContext);
   const taskInput = useRef();
   const router = useRouter();
   const params = useParams();
@@ -43,15 +46,17 @@ function Page() {
   };
 
   useEffect(() => {
+    setLoading(true);
     fetch(`/api/task/${params.id}`)
       .then((res) => res.json())
       .then((json) => {
         setTask(json);
         if (json.tasks) {
-          setTasks(json.tasks || []);
+          setTasks(json.tasks || {});
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   }, []);
 
   const handleAddTask = () => {
@@ -88,6 +93,7 @@ function Page() {
   };
   return (
     <div className="w-full flex justify-center flex-col">
+      <Loading loading={loading} />
       <div
         className="w-[80%] flex flex-col justify-center gap-[10px]"
         onSubmit={(e) => e.preventDefault()}
@@ -111,7 +117,11 @@ function Page() {
             </div>
             <button
               onClick={(e) => handlePush(e)}
-              className={`w-[200px] h-[40px] self-start text-[#ffffff] ${changed ?'bg-[#2a2b2f]' : "bg-gray-200"} font-[500] rounded-2xl`}
+              className={`w-[200px] h-[40px] self-start text-[#ffffff] ${changed ? `${
+                  theme !== "light" ? "bg-blue-700" : "bg-[#222327]"
+                }` : `${
+                  theme === "light" ? "bg-gray-300" : "bg-[#3f3f41]"
+                }`} font-[500] rounded-2xl`}
             >
               Update Task
             </button>
@@ -128,17 +138,23 @@ function Page() {
               />
               <button
                 onClick={handleAddTask}
-                className="h-full w-[20%] text-[#ffffff] bg-[#2a2b2f] rounded-br-[8px] rounded-tr-[8px]"
+                className={`h-full w-[20%] text-[#ffffff] ${
+                  theme !== "light" ? "bg-blue-700" : "bg-[#222327]"
+                } rounded-br-[8px] rounded-tr-[8px]`}
               >
                 Add
               </button>
             </div>
-            <div className="flex flex-col gap-[10px] bg-gray-100 p-[5px] max-h-[500px] o">
+            <div className={`flex flex-col gap-[10px] ${
+              theme === "light" ? "bg-gray-100" : "bg-[#24262c]"
+            } p-[5px] max-h-[500px] `}>
               {tasks?.map((value) => {
                 return (
                   <section
                     key={value?.task}
-                    className="flex justify-between p-[10px] w-full items-center h-[50px] bg-[#ffffff] rounded-[8px] border-1 border-[lightgray]"
+                    className={`flex justify-between p-[10px] w-full items-center h-[50px] ${
+                      theme === "light" ? "bg-[#ffffff]" : "bg-[#292b31]"
+                    } rounded-[8px] border-1 border-[lightgray]`}
                   >
                     <span className="flex gap-[10px]">
                       <input type="checkbox" onChange={(e) => handleCheck(value)} checked={value.done} />

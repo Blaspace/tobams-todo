@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import TaskContext from '../../context/TaskContext';
+import TaskContext from "../../context/TaskContext";
 import { useContext } from "react";
 
 function Page() {
@@ -91,8 +91,8 @@ function Page() {
             <button
               onClick={(e) => handlePush(e)}
               className={`w-[200px] h-[40px] self-start border-[#2a2b2f] text-[#ffffff]   ${
-          theme !== "light" ? "bg-blue-700" : "bg-[#222327]"
-        } font-[500] rounded-2xl`}
+                theme !== "light" ? "bg-blue-700" : "bg-[#222327]"
+              } font-[500] rounded-2xl`}
             >
               Submit
             </button>
@@ -110,18 +110,24 @@ function Page() {
               <button
                 onClick={handleAddTask}
                 className={`h-full w-[20%] text-[#ffffff]  ${
-          theme !== "light" ? "bg-blue-700" : "bg-[#222327]"
-        } rounded-br-[8px] rounded-tr-[8px]`}
+                  theme !== "light" ? "bg-blue-700" : "bg-[#222327]"
+                } rounded-br-[8px] rounded-tr-[8px]`}
               >
                 Add
               </button>
             </div>
-            <div className="flex flex-col gap-[10px] bg-gray-100 p-[5px] max-h-[500px] o">
+            <div
+              className={`flex flex-col gap-[10px] ${
+                theme === "light" ? "bg-gray-100" : "bg-[#24262c]"
+              } p-[5px] max-h-[500px] `}
+            >
               {tasks.map((value) => {
                 return (
                   <section
                     key={value}
-                    className="flex justify-between p-[10px] w-full items-center h-[50px] bg-[#ffffff] rounded-[8px] border-1 border-[lightgray]"
+                    className={`flex justify-between p-[10px] w-full items-center h-[50px] ${
+                      theme === "light" ? "bg-[#ffffff]" : "bg-[#292b31]"
+                    } rounded-[8px] border-1 border-[lightgray]`}
                   >
                     <span className="flex gap-[10px]">
                       <input type="checkbox" checked={value.done} />

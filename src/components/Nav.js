@@ -12,7 +12,11 @@ function Nav() {
         theme === "light" ? "bg-[#ffffff]" : "bg-[#292b31]"
       } w-full h-[100px] flex items-center justify-between`}
     >
-      <h2 className="font-bold text-[20px] text-[#ffffff]">
+      <h2
+        className={`font-bold text-[20px] ${
+          theme !== "light" ? "text-[#ffffff]" : "text-[#292b31]"
+        }`}
+      >
         Welcome Back, James
       </h2>
       <div className="flex gap-2 items-center">
