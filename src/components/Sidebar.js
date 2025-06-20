@@ -10,6 +10,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 import TaskContext from "@/context/TaskContext";
 import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 import { IoIosArrowForward } from "react-icons/io";
+import Link from "next/link";
 
 function Sidebar() {
   const [togle, setToggle] = React.useState(false);
@@ -28,6 +29,9 @@ function Sidebar() {
     const savedTheme = localStorage.getItem("theme") || "light";
     document.getElementsByTagName("body")[0].style.backgroundColor =
       theme === "light" ? "#ffffff" : "#292b31";
+
+    document.getElementsByTagName("body")[0].style.color =
+      theme !== "light" ? "#ffffff" : "#292b31";
     setTheme(savedTheme);
   }, [theme]);
   return (
@@ -63,12 +67,24 @@ function Sidebar() {
             theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
           }`}
         >
+          
           <section className="flex items-center justify-between w-full">
             <h1 className="text-2xl font-bold">Projects</h1>{" "}
             <FaCirclePlus className="text-[20px] " />
           </section>
           <br />
           <div className="flex flex-col gap-1 font-[550] text-[14px] text-gray-500">
+            <Link href={"/"}>
+          <p className="flex justify-between ">
+              Tasks{" "}
+              <IoIosArrowForward
+                color={`${
+                  theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
+                }`}
+              />
+              
+            </p>
+            </Link>
             <p className="flex justify-between ">
               Team{" "}
               <IoIosArrowForward
@@ -79,14 +95,6 @@ function Sidebar() {
             </p>
             <p className="flex justify-between ">
               Projects{" "}
-              <IoIosArrowForward
-                color={`${
-                  theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
-                }`}
-              />
-            </p>
-            <p className="flex justify-between ">
-              Tasks{" "}
               <IoIosArrowForward
                 color={`${
                   theme !== "light" ? "text-[#ffffff]" : "text-[#24262c]"
@@ -118,7 +126,7 @@ function Sidebar() {
         >
           <span
             className={`w-[50%] h-[30px] ${
-              theme === "light" && "bg-[#ffffff] text-[#000]"
+              theme === "light" && "bg-[#ffffff] text-[#000]" 
             }  rounded-2xl flex justify-center text-[14px] items-center cursor-pointer shadow-2xl`}
             onClick={() => {
               localStorage.setItem("theme", "light");

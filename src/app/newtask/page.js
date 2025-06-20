@@ -1,12 +1,15 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import TaskContext from '../../context/TaskContext';
+import { useContext } from "react";
 
 function Page() {
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState("");
   const [title, setTitle] = useState("");
   const [dueDate, setDueDate] = useState("");
+  const { theme } = useContext(TaskContext);
   const taskInput = useRef();
   const router = useRouter();
 
@@ -63,7 +66,9 @@ function Page() {
   return (
     <div className="w-full flex justify-center flex-col">
       <form
-        className="w-[80%] flex flex-col justify-center gap-[20px]"
+        className={`w-[80%] flex flex-col justify-center ${
+          theme !== "light" ? "text-[#ffffff]" : "text-[#222327]"
+        } gap-[20px]`}
         onSubmit={(e) => e.preventDefault()}
       >
         <h1 className="text-[20px] font-bold">Add New Task</h1>
@@ -85,7 +90,9 @@ function Page() {
             />
             <button
               onClick={(e) => handlePush(e)}
-              className="w-[200px] h-[40px] self-start border-[#2a2b2f] text-[#ffffff] bg-[#2a2b2f] font-[500] rounded-2xl"
+              className={`w-[200px] h-[40px] self-start border-[#2a2b2f] text-[#ffffff]   ${
+          theme !== "light" ? "bg-blue-700" : "bg-[#222327]"
+        } font-[500] rounded-2xl`}
             >
               Submit
             </button>
@@ -102,7 +109,9 @@ function Page() {
               />
               <button
                 onClick={handleAddTask}
-                className="h-full w-[20%] text-[#ffffff] bg-[#2a2b2f] rounded-br-[8px] rounded-tr-[8px]"
+                className={`h-full w-[20%] text-[#ffffff]  ${
+          theme !== "light" ? "bg-blue-700" : "bg-[#222327]"
+        } rounded-br-[8px] rounded-tr-[8px]`}
               >
                 Add
               </button>

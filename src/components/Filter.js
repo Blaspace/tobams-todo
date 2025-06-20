@@ -32,7 +32,11 @@ function Filter() {
           className="mb-[10px]"
         />
         <a href="/newtask">
-          <button className="bg-[#2a2b2f] pt-[8px] pb-[8px] pr-[20px] pl-[20px] rounded-[20px] mb-[10px] text-[13px] text-[#ffffff]">
+          <button
+            className={`${
+              theme === "light" ? "bg-[#222327]" : "bg-blue-700"
+            } pt-[8px] pb-[8px] pr-[20px] pl-[20px] rounded-[20px] mb-[10px] text-[13px] text-[#ffffff]`}
+          >
             New template
           </button>
         </a>

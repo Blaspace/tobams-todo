@@ -100,7 +100,9 @@ function Tasks({ tasks, cat }) {
                     ? "bg-red-100 "
                     : "bg-gray-600"
                 } text-[14px] ${
-                  cat !== "done" && "text-red-600"
+                  cat !== "done" && theme === "light"
+                    ? "text-red-600 "
+                    : "bg-gray-700"
                 }  w-[40%] rounded-2xl`}
               >
                 {value?.dateDue}

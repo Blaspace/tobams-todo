@@ -39,7 +39,7 @@ export default function Home() {
       (value) => value?.tasks?.filter((v) => v?.done)?.length === 0
     );
     setTodoTask(todo);
-    const progress = tasks.filter(
+    const progress = tasks?.filter(
       (value) =>
         value?.tasks?.length > value?.tasks?.filter((v) => v?.done)?.length &&
         value?.tasks?.filter((v) => v?.done)?.length
