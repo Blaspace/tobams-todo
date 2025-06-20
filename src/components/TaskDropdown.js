@@ -2,16 +2,23 @@
 import React from "react";
 import Link from "next/link";
 import DeleteBox from "./DeleteBox";
+import TaskContext from "../context/TaskContext";
 
 function TaskDropdown({ drop, setDrop, id }) {
   const [deleteId, setDeleteId] = React.useState(null);
+  const { theme } = React.useContext(TaskContext);
+
   return (
     <>
       <DeleteBox id={deleteId} setId={setDeleteId} />
       <div
         className={`${
           drop ? "h-[150px]" : "h-[0]"
-        } w-[80%] overflow-hidden transition-all duration-500 ease-in-out bg-[#ffffff] absolute top-[0] right-[0] shadow-lg`}
+        } w-[80%] overflow-hidden transition-all duration-500 ease-in-out ${
+          theme === "light"
+            ? "bg-[#ffffff] text-black"
+            : "bg-[#222327] text-[#ffffff]"
+        } absolute top-[0] right-[0] shadow-lg`}
       >
         <div className="relative flex flex-col gap-[5px]">
           <span
@@ -30,7 +37,10 @@ function TaskDropdown({ drop, setDrop, id }) {
               Update Task
             </Link>
           </p>
-          <p onClick={() => setDeleteId(id)} className="p-4 text-[14px] text-[red] cursor-pointer">
+          <p
+            onClick={() => setDeleteId(id)}
+            className="p-4 text-[14px] text-[red] cursor-pointer"
+          >
             Delete Task
           </p>
         </div>

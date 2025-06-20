@@ -5,6 +5,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import TaskDropdown from "./TaskDropdown";
 import TaskContext from "@/context/TaskContext";
+import Link from "next/link";
 
 function Tasks({ tasks, cat }) {
   const { theme } = React.useContext(TaskContext);
@@ -21,13 +22,13 @@ function Tasks({ tasks, cat }) {
       }`}
     >
       <div className="flex justify-between text-gray-400 text-[14px]">
-        <p>{`${cat} (${tasks?.length})`}</p>
+        <p>{`${cat} (${tasks?.length || 0})`}</p>
 
-        <a href="/newtask">
+        <Link href="/newtask">
           <p className="flex gap-0.5 items-center text-gray-400 cursor-pointer">
             <FaCirclePlus className="text-gray-400" /> Add new task
           </p>
-        </a>
+        </Link>
       </div>
       {tasks?.map((value) => {
         const doneTask = value?.tasks?.filter((v) => v?.done)?.length;
@@ -95,14 +96,14 @@ function Tasks({ tasks, cat }) {
                   cat === "done"
                     ? theme === "light"
                       ? "bg-gray-100 "
-                      : "bg-gray-600"
+                      : "bg-[#424344]"
                     : theme === "light"
                     ? "bg-red-100 "
-                    : "bg-gray-600"
+                    : "bg-[#424344]"
                 } text-[14px] ${
                   cat !== "done" && theme === "light"
                     ? "text-red-600 "
-                    : "bg-gray-700"
+                    : "text-gray-400"
                 }  w-[40%] rounded-2xl`}
               >
                 {value?.dateDue}

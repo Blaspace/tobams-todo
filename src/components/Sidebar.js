@@ -121,7 +121,7 @@ function Sidebar() {
         </div>
         <div
           className={`w-full flex justify-around p-[3px] items-center rounded-2xl  ${
-            theme === "light" ? "bg-gray-100 text-[#000]" : "bg-gray-600 text-[#ffffff]"
+            theme === "light" ? "bg-gray-100 text-[#000]" : "bg-[#292b31] text-[#ffffff]"
           } `}
         >
           <span
